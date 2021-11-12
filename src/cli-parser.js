@@ -58,7 +58,7 @@ class parserCLI {
         acc.push([elem[0]]);
         return acc;
       }
-      const num = parseInt(elem[1]);
+      const num = parseInt(elem[1], 10);
       if (num !== 0 && num !== 1) error(); // only 0,1
       acc.push([elem[0], Boolean(num)]);
       return acc;
