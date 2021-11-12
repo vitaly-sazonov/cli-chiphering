@@ -19,7 +19,10 @@ class ReadStream extends Readable {
       .catch((e) => {
         let err;
         if (e.code === 'ENOENT') {
-          err = new ErrorStream(`no such file or directory "${e.path}"`);
+          err = new ErrorStream(`no such file "${e.path}"`);
+        }
+        if (e.code === 'ENOTDIR') {
+          err = new ErrorStream(`no such directory "${e.path}"`);
         }
         next(err || e);
       });
