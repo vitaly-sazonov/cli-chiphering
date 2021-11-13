@@ -13,7 +13,7 @@ try {
     if (cipher == 'R') return new RotateStream({}, 8, encode);
   });
 
-  const streamRead = input ? new ReadStream(input, 'utf8') : process.stdin;
+  const streamRead = input ? new ReadStream(input) : process.stdin;
   const streamWrite = output ? new WriteStream(output) : process.stdout;
 
   pipeline(streamRead, ...streamsCipher, streamWrite, (err) =>

@@ -35,7 +35,9 @@ class parserCLI {
     if (key === '-i' || key === '--input') return 'input';
     if (key === '-o' || key === '--output') return 'output';
 
-    throw new ErrorParserArgv('Keys can be only "-c, -i, -o" or "--config, --input, --output"\n');
+    throw new ErrorParserArgv(`Run command error! 
+    Command format: node cli-cipherning -key1 "value1" -key2 "value2" ...
+    Keys can be only "-c, -i, -o" or "--config, --input, --output"\n`);
   };
 
   _checkRepeatKeys = (map, key) => {

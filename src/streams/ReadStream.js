@@ -4,7 +4,7 @@ const { Readable } = require('stream');
 const { ErrorStream } = require('./../errors');
 
 class ReadStream extends Readable {
-  constructor(filename, encoding) {
+  constructor(filename) {
     super();
     this.filename = filename;
     this.fd = null;
