@@ -44,6 +44,7 @@ describe('Test class cli-parser', () => {
   });
 
   test('if the config has syntax errors, then a custom error "ErrorParserConfig" is thrown', () => {
+    expect(() => parseFn(`node cli-ciphering -c`)).toThrow(ErrorParserConfig);
     expect(() => parseFn(`node cli-ciphering -c "C-C1-R0-A"`)).toThrow(ErrorParserConfig);
     expect(() => parseFn(`node cli-ciphering -c "C3-C1-R0-A"`)).toThrow(ErrorParserConfig);
     expect(() => parseFn(`node cli-ciphering -c "-C1-R0-A"`)).toThrow(ErrorParserConfig);
