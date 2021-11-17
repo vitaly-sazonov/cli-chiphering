@@ -9,7 +9,7 @@ Command utility for encoding / decoding ciphers:
 ### **Command syntax**
 
 ```zsh
-$ node cli-ciphernig -c <configuration> [-i <input file path>] [-o <input file path:>]
+$ node cli-ciphering -c <configuration> [-i <input file path>] [-o <input file path:>]
 ```
 
 _where:_
