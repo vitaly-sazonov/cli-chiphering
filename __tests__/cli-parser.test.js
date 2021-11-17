@@ -52,3 +52,37 @@ describe('Test class cli-parser', () => {
     expect(() => parseFn(`node cli-ciphering -c "C1-R0-A-D"`)).toThrow(ErrorParserConfig);
   });
 });
+
+describe('Testing function errorHandler', () => {
+  let processExitOriginal, consoleErrorOriginal;
+
+  beforeEach(() => {
+    processExitOriginal = process.exit;
+    consoleErrorOriginal = console.error;
+    process.exit = jest.fn();
+    console.error = jest.fn();
+  });
+
+  afterEach(() => {
+    process.exit = processExitOriginal;
+    console.error = consoleErrorOriginal;
+  });
+
+  const testCustomError = (errorClass) => {
+    const err = new errorClass('error text');
+    expect(() => errorHandler(err)).toThrowError(err);
+    expect(process.exit.mock.calls[0][0]).toBe(1);
+    expect(process.exit.mock.calls.length).toBe(1);
+    expect(console.error.mock.calls[0][0]).toBe(`${err.name}: ${err.message}`);
+    expect(console.error.mock.calls.length).toBe(1);
+  };
+
+  test('errorHandler intercept custom error "ErrorParserArgv", write text error in stderr, and terminate the process with code 1', () =>
+    testCustomError(ErrorParserArgv));
+
+  test('errorHandler intercept custom error "ErrorParserConfig", write text error in stderr, and terminate the process with code 1', () =>
+    testCustomError(ErrorParserConfig));
+
+  test('errorHandler intercept custom error "ErrorStream", write text error in stderr, and terminate the process with code 1', () =>
+    testCustomError(ErrorStream));
+});
