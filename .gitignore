@@ -1,5 +1,6 @@
 .vscode
 .trash
+/coverage
 
 /node_modules
 
