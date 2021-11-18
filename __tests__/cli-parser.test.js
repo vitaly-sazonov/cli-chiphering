@@ -30,7 +30,9 @@ describe('Test class cli-parser', () => {
   });
 
   test('if there is a duplicate key in the config, then a custom error is thrown', () => {
-    expect(() => parseFn(`node cli-ciphering -c "C1-C1-R0-A" -c "C1-C1-R0-A"`)).toThrow(ErrorParserArgv);
+    expect(() => parseFn(`node cli-ciphering -c "C1-C1-R0-A" -c "C1-C1-R0-A"`)).toThrow(
+      ErrorParserArgv,
+    );
   });
 
   test('if the config is missing, then a custom error "ErrorParserArgv" is thrown', () => {
@@ -60,8 +62,8 @@ describe('Testing function errorHandler', () => {
   beforeEach(() => {
     processExitOriginal = process.exit;
     consoleErrorOriginal = console.error;
-    process.exit = jest.fn();
-    console.error = jest.fn();
+    process.exit = jest.fn(); // Mock
+    console.error = jest.fn(); // Mock
   });
 
   afterEach(() => {
@@ -86,4 +88,10 @@ describe('Testing function errorHandler', () => {
 
   test('errorHandler intercept custom error "ErrorStream", write text error in stderr, and terminate the process with code 1', () =>
     testCustomError(ErrorStream));
+
+  test('another errors thrown to the next levet', () => {
+    const message = 'another error';
+    const err = new Error(message);
+    expect(() => errorHandler(err)).toThrowError(err);
+  });
 });
