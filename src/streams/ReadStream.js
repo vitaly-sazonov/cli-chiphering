@@ -1,5 +1,4 @@
 const fs = require('fs');
-const fsPromise = require('fs/promises');
 const { Readable } = require('stream');
 const { ErrorStream } = require('./../errors');
 
@@ -10,7 +9,7 @@ class ReadStream extends Readable {
     this.fd = null;
   }
   _construct(next) {
-    fsPromise
+    fs.promises
       .open(this.filename, 'r')
       .then(({ fd }) => {
         this.fd = fd;
@@ -18,11 +17,8 @@ class ReadStream extends Readable {
       })
       .catch((e) => {
         let err;
-        if (e.code === 'ENOENT') {
-          err = new ErrorStream(`no such file "${e.path}"`);
-        }
-        if (e.code === 'ENOTDIR') {
-          err = new ErrorStream(`no such directory "${e.path}"`);
+        if (e.code === 'ENOENT' || e.code === 'ENOTDIR') {
+          err = new ErrorStream(`no such directory or file "${e.path}"`);
         }
         next(err || e);
       });
