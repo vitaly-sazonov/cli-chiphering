@@ -4,7 +4,9 @@
   "description": "Command utility for encoding / decoding ciphers:",
   "main": "cli-ciphering.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage"
   },
   "repository": {
     "type": "git",
