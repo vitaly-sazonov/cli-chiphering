@@ -38,9 +38,10 @@ describe('Testing ReadStream', () => {
 
   test('If the file is read successfully, then we get the data from the file', (done) => {
     fs.__setTest(constants.NORMAL_READ);
+    fs.__setTextRead('text text');
     const read = new ReadStream('./input.txt');
     read.on('data', (data) => {
-      expect(data.toString('utf8')).toBe(constants.TEST_TEXT);
+      expect(data.toString('utf8')).toBe('text text');
       done();
     });
   });
@@ -120,39 +121,40 @@ describe('Testing WriteStream', () => {
   });
 
   test('Data is written to the file streaming successfully', (done) => {
-    const { PassThrough, pipeline } = require('stream');
+    const testString = 'text text';
     fs.__setTest(constants.NORMAL_WRITE);
-    const fakeStream = new PassThrough();
     const write = new WriteStream('./output.txt');
     write.on('finish', () => {
-      expect(fs._testStringWrite()).toBe(constants.TEST_TEXT);
+      expect(fs._testStringWrite()).toBe(testString);
       expect(fs.write).toHaveBeenCalled();
       expect(fs.close).toHaveBeenCalled();
       done();
     });
-    write.end(constants.TEST_TEXT);
+    write.end(testString);
   }, 500);
 
   test('If the file write crashes, then an error is caught', (done) => {
     fs.__setTest(constants.DESTROY);
+    const testString = 'text text';
     const write = new WriteStream('./output.txt');
     write.on('error', (err) => {
       expect(fs.write).toHaveBeenCalled();
       expect(err).toBeInstanceOf(MockErrorDestroy);
       done();
     });
-    write.end(constants.TEST_TEXT);
+    write.end(testString);
   });
 
   test('If there is an error when closing the file, then throw the error', (done) => {
     fs.__setTest(constants.CLOSE_FAILED);
+    const testString = 'text text';
     const write = new WriteStream('./output.txt');
     write.on('error', (err) => {
       expect(fs.close).toHaveBeenCalled();
       expect(err).toBeInstanceOf(MockErrorClose);
       done();
     });
-    write.end(constants.TEST_TEXT);
+    write.end(testString);
   });
 });
 
