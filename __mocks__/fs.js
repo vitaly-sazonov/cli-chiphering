@@ -24,11 +24,15 @@ const EACCES = 'access';
 const file = { fd: 10 };
 let __test,
   __isRead = true,
-  _testStringWrite = '';
+  _testStringWrite = '',
+  _testStringRead = '';
 const __setTest = (mode) => {
   __test = mode;
   __isRead = ![NORMAL_READ, CLOSE_SUCCESS, CLOSE_FAILED].includes(mode);
-  //if (mode == NORMAL_WRITE) _testStringWrite = '';
+  if (mode == NORMAL_WRITE) _testStringWrite = '';
+};
+const __setTextRead = (text) => {
+  _testStringRead = text;
 };
 
 const open = (filename) => {
@@ -50,7 +54,7 @@ const open = (filename) => {
 const read = (fd, buffer, offset, length, position, next) => {
   if (__test == NORMAL_READ || __test == CLOSE_SUCCESS || __test == CLOSE_FAILED) {
     if (!__isRead) {
-      next(false, buffer.write(TEST_TEXT, 'utf-8'));
+      next(false, buffer.write(_testStringRead, 'utf-8'));
       __isRead = true;
     } else next(false, 0);
   } else next(new MockErrorDestroy());
@@ -80,6 +84,7 @@ const access = jest.fn(() => {
 fs.promises = { open, access };
 fs.__setTest = __setTest;
 fs.read = read;
+fs.__setTextRead = __setTextRead;
 fs.write = write;
 fs._testStringWrite = () => _testStringWrite;
 fs.close = close;
