@@ -5,7 +5,7 @@
   "main": "cli-ciphering.js",
   "scripts": {
     "test": "jest --verbose",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch --silent=false",
     "test:cov": "jest --coverage"
   },
   "repository": {
