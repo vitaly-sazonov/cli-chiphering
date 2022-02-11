@@ -2,7 +2,7 @@ const { Transform } = require('stream');
 
 class RotateStream extends Transform {
   constructor(opt = {}, shift, encode) {
-    opt = { ...opt, decodeStrings: false };
+    opt = { decodeStrings: false, ...opt };
     super(opt);
 
     this._shift = (begin, asciiCode, end) => {

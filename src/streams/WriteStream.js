@@ -1,4 +1,3 @@
-const fsPromise = require('fs/promises');
 const fs = require('fs');
 const { constants } = require('fs');
 const { Writable } = require('stream');
@@ -12,8 +11,8 @@ class WriteStream extends Writable {
   }
   async _open(next) {
     try {
-      await fsPromise.access(this.filename, constants.W_OK);
-      const open = await fsPromise.open(this.filename, 'a');
+      await fs.promises.access(this.filename, constants.W_OK);
+      const open = await fs.promises.open(this.filename, 'a');
       this.fd = open.fd;
       next();
     } catch (e) {
@@ -21,7 +20,7 @@ class WriteStream extends Writable {
       if (e.code === 'EACCES') {
         err = new ErrorStream(`file "${e.path}" access denied`);
       }
-      if (e.code === 'ENOENT') {
+      if (e.code === 'ENOENT' || e.code === 'ENOTDIR') {
         err = new ErrorStream(`no such file or directory "${e.path}"`);
       }
       next(err || e);

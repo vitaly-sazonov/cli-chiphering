@@ -9,7 +9,7 @@ Command utility for encoding / decoding ciphers:
 ### **Command syntax**
 
 ```zsh
-$ node cli-ciphernig -c <configuration> [-i <input file path>] [-o <input file path:>]
+$ node cli-ciphering -c <configuration> [-i <input file path>] [-o <input file path:>]
 ```
 
 _where:_
@@ -37,4 +37,21 @@ $ node cli-ciphernig --config "C1-C1-R0-A" --output "./output.txt"
 $ node cli-ciphernig -с "C1-C1-R0-A"
 # ... transformation ...
 # read from the `stdin` stream, write to the `stdout` stream
+```
+
+### **Command testing**
+
+```zsh
+# testing with detailed description
+$ npm run test
+```
+
+```zsh
+# autotesting for test development
+$ npm run test:watch
+```
+
+```zsh
+# test coverage table
+$ npm run test:cov
 ```

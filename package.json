@@ -1,0 +1,25 @@
+{
+  "name": "cli-chiphering",
+  "version": "1.0.0",
+  "description": "Command utility for encoding / decoding ciphers:",
+  "main": "cli-ciphering.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "test:watch": "jest --watch --silent=false",
+    "test:cov": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitaly-sazonov/cli-chiphering.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitaly-sazonov/cli-chiphering/issues"
+  },
+  "homepage": "https://github.com/vitaly-sazonov/cli-chiphering#readme",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
+}

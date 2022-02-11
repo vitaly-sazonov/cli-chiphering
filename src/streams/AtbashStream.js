@@ -2,7 +2,7 @@ const { Transform } = require('stream');
 
 class AtbashStream extends Transform {
   constructor(opt = {}) {
-    opt = { ...opt, decodeStrings: false };
+    opt = { decodeStrings: false, ...opt };
     super(opt);
     this._shift = (begin, asciiCode, end) => String.fromCharCode(end - asciiCode + begin);
   }

@@ -52,6 +52,8 @@ class parserCLI {
     Z can be only A.\n`);
     };
 
+    if (!str) error();
+
     return str.split('-').reduce((acc, elem) => {
       if (elem.length == 0 || elem.length > 2) error(); // rule out example: XY--XY, XY-XY-, -XY
       if (!this._validConfig.has(elem[0])) error(); // only C,R,A
